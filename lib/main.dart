@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   CollectionReference groceries =
       FirebaseFirestore.instance.collection('groceries');
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +48,17 @@ class _MyHomePageState extends State<MyHomePage> {
               labelText: 'Groceries',
             ),
           ),
+
+          //
+          //Widget that builds itself based on the latest snapshot of interaction with a Stream.
+          //A source of asynchronous data events.
+          //
           StreamBuilder(
+            // A Stream provides a way to receive a sequence of events.
+            // Each event is either a data event, also called an element of the stream,
+            // or an error event, which is a notification that something has failed.
+            // When a stream has emitted all its event,
+            // a single "done" event will notify the listener that the end has been reached.
             stream: groceries.orderBy('name').snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) {
